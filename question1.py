@@ -5,10 +5,12 @@ Implementa una CLI que calcule carga por punto de soporte.
 
 import sys
 
-def main():
+file_name = "tasks.txt"
+def question1():
     try:
         if len(sys.argv) != 3:
-            raise ValueError
+            print("Error: Invalid input! Enter numeric values only.")
+            return
 
         total_load = float(sys.argv[1])
         num_supports = float(sys.argv[2])
@@ -16,6 +18,7 @@ def main():
         if num_supports == 0:
             print("Error: Cannot divide by zero! Supports must be greater than zero.")
             return
+
         load_per_support = total_load / num_supports
 
         print(f"Load per support point: {load_per_support:.2f} N")
@@ -23,13 +26,10 @@ def main():
     except ValueError:
         print("Error: Invalid input! Enter numeric values only.")
 
-if __name__ == "__main__":
-    main()
-
-file_name = "tasks.txt"
 
 def load_tasks():
     tasks = []
+
     try:
         file = open(file_name, "r")
         lines = file.readlines()
@@ -43,6 +43,7 @@ def load_tasks():
 
     return tasks
 
+
 def save_tasks(tasks):
     file = open(file_name, "w")
 
@@ -50,6 +51,7 @@ def save_tasks(tasks):
         file.write(task + "\n")
 
     file.close()
+
 
 def view_tasks():
     tasks = load_tasks()
@@ -65,14 +67,14 @@ def view_tasks():
         print(str(i) + ". " + task)
         i = i + 1
 
+
 def add_task(task):
     tasks = load_tasks()
-
     tasks.append(task)
-
     save_tasks(tasks)
 
     print("Task added successfully.")
+
 
 def remove_task(number):
     tasks = load_tasks()
@@ -93,15 +95,8 @@ def remove_task(number):
     except ValueError:
         print("Error: Invalid input! Enter a valid task number.")
 
-def main():
 
-    if len(sys.argv) < 2:
-        print("Usage:")
-        print("python question1.py view")
-        print("python question1.py add \"Task name\"")
-        print("python question1.py remove <task_number>")
-        return
-
+def question2():
     command = sys.argv[1]
 
     if command == "view":
@@ -114,7 +109,6 @@ def main():
             return
 
         task = sys.argv[2]
-
         add_task(task)
 
     elif command == "remove":
@@ -125,8 +119,23 @@ def main():
 
         remove_task(sys.argv[2])
 
-    else:
-        print("Error: Unknown command.")
+
+def main():
+
+    if len(sys.argv) >= 2:
+
+        try:
+            float(sys.argv[1])
+            question1()
+            return
+
+        except ValueError:
+            question2()
+            return
+
+  
+    print("Error: Invalid input! Enter numeric values only.")
 
 
 main()
+
