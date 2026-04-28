@@ -14,3 +14,21 @@ try:
         print(task)
 except IndexError:
     print("Insufficient arguments provided!")
+
+try:
+    file_path = sys.argv[1]
+    try:
+        command = sys.argv[2]
+        if command == "view":
+            tasks = read_todo_file(file_path)
+            print("Tasks:")
+            for task in tasks:
+                print(task)
+        else:
+            raise ValueError("Command not found!")
+    except IndexError:
+        pass
+except IndexError:
+    print("Insufficient arguments provided!")
+except ValueError as e:
+    print(e)
