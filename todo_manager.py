@@ -15,4 +15,3 @@ def write_todo_file(file_path, tasks):
     with open(file_path, 'w') as file:
         for task in tasks:
             file.write(task + "\n")
-    raise NotImplementedError
